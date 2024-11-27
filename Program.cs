@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Common;
 using Newtonsoft.Json;
 using System.Threading;
+using System.IO;
 
 namespace SnakeBugrina
 {
@@ -44,6 +45,13 @@ namespace SnakeBugrina
                     sender.Close();
                 }
             }
+        }
+        public static void SaveLeaders()
+        {
+            string json = JsonConvert.SerializeObject(Leaders);
+            StreamWriter SW = new StreamWriter("./leaders.txt");
+            SW.WriteLine(json);
+            SW.Close();
         }
         public static int AddSnake()
         {
