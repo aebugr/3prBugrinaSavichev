@@ -46,6 +46,27 @@ namespace SnakeBugrina
                 }
             }
         }
+        public static void LoadLeaders()
+        {
+            if (File.Exists("./leaders.txt"))
+            {
+                StreamReader SR = new StreamReader("./leaders.txt");
+                string json = SR.ReadLine();
+                SR.Close();
+                if (!string.IsNullOrEmpty(json))
+                {
+                    Leaders = JsonConvert.DeserializeObject<List<Leaders>>(json);
+                }
+                else
+                {
+                    Leaders = new List<Leaders>();
+                }
+            }
+            else
+            {
+                Leaders = new List<Leaders> { };
+            }
+        }
         public static void SaveLeaders()
         {
             string json = JsonConvert.SerializeObject(Leaders);
@@ -134,7 +155,7 @@ namespace SnakeBugrina
                                 X = Snake.Points[Snake.Points.Count - 1].X,
                                 Y = Snake.Points[Snake.Points.Count - 1].Y
                             });
-                            LoadLeader();
+                            LoadLeaders();
                             Leaders.Add(new Leaders()
                             {
                                 Name = User.Name,
