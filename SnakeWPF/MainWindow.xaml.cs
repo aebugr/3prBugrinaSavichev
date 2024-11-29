@@ -56,7 +56,7 @@ namespace SnakeWPF
             startAnimation.Duration = TimeSpan.FromSeconds(0.6);
             startAnimation.Completed += delegate
             {
-                frame.Navigate(PageOpen);
+                frame.Navigate(page);
                 DoubleAnimation endAnimation = new DoubleAnimation();
                 endAnimation.From = 0;
                 endAnimation.To = 1;

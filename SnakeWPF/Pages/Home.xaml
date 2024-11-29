@@ -9,15 +9,9 @@
       d:DesignWidth="800"
       Title="Home">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/SnakeWPF;component/Image/background.jpg"></ImageBrush>
-        </Grid.Background>
+    <Grid Background="#50742c">
         <Grid>
-            <Grid Width="320" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid.Background>
-                    <ImageBrush ImageSource="/SnakeWPF;component/Image/background_2.png"></ImageBrush>
-                </Grid.Background>
+            <Grid Width="320" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#aad751">
 
                 <Label Content="Your IP address:" 
                HorizontalAlignment="Left"
