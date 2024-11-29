@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Windows.Media.Animation;
+using Newtonsoft.Json;
 
 namespace SnakeWPF
 {
@@ -38,6 +39,8 @@ namespace SnakeWPF
         public MainWindow()
         {
             InitializeComponent();
+            mainWindow = this;
+            OpenPage(Home);
         }
         public void StartReceiver()
         {
@@ -59,7 +62,7 @@ namespace SnakeWPF
                 endAnimation.To = 1;
                 endAnimation.Duration = TimeSpan.FromSeconds(0.6);
                 frame.BeginAnimation(OpacityProperty, endAnimation);
-            }
+            };
             frame.BeginAnimation(OpacityProperty, startAnimation);
         }
 
@@ -117,6 +120,27 @@ namespace SnakeWPF
             {
                 sender.Close();
             }
+        }
+
+        private void EventKeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ViewModelUserSettings.IPAddress) && !string.IsNullOrEmpty(ViewModelUserSettings.Port) && (ViewModelGames != null && !ViewModelGames.SnakesPlayers.GameOver))
+            {
+                if (e.Key == Key.Up)
+                    Send($"Up|{JsonConvert.SerializeObject(ViewModelUserSettings)}");
+                else if (e.Key == Key.Down)
+                    Send($"Down|{JsonConvert.SerializeObject(ViewModelUserSettings)}");
+                else if (e.Key == Key.Left)
+                    Send($"Left|{JsonConvert.SerializeObject(ViewModelUserSettings)}");
+                else if (e.Key == Key.Right)
+                    Send($"Right|{JsonConvert.SerializeObject(ViewModelUserSettings)}");
+            }
+        }
+
+        private void QuitApplication(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            receivingUdpClient.Close();
+            tRec.Abort();
         }
     }
 }
