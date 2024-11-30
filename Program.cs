@@ -30,10 +30,18 @@ namespace SnakeBugrina
                     int.Parse(User.Port));
                 try
                 {
-                    byte[] bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(viewModelGames.Find(x => x.IdSnake == User.IdSnake)));
-                    sender.Send(bytes, bytes.Length, endPoint);
+                    var playerData = viewModelGames.Find(x => x.IdSnake == User.IdSnake);
+                    var otherPlayersData = viewModelGames.FindAll(x => x.IdSnake != User.IdSnake);
+                    var gameData = new GameData
+                    {
+                        Player1Data = playerData,
+                        OtherPlayersData = otherPlayersData
+                    };
+
+                    byte[] gameDataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(gameData));
+                    sender.Send(gameDataBytes, gameDataBytes.Length, endPoint);
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"Отправил данные пользователю {User.IPAddress}:{User.Port}");
+                    Console.WriteLine($"Отправил данные игроку {User.IPAddress}:{User.Port}");
                 }
                 catch (Exception ex)
                 {
