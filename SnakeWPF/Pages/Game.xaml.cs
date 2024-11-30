@@ -98,7 +98,7 @@ namespace SnakeWPF.Pages
                     };
                     canvas.Children.Add(ellipse);
                 }
-                // отрисовка остальных игроков
+                
                 if (MainWindow.mainWindow.AllViewModelGames != null)
                 {
                     for (int i = 0; i < MainWindow.mainWindow.AllViewModelGames.Count; i++)
