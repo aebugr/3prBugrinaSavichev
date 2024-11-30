@@ -98,6 +98,76 @@ namespace SnakeWPF.Pages
                     };
                     canvas.Children.Add(ellipse);
                 }
+                // отрисовка остальных игроков
+                if (MainWindow.mainWindow.AllViewModelGames != null)
+                {
+                    for (int i = 0; i < MainWindow.mainWindow.AllViewModelGames.Count; i++)
+                    {
+                        for (int iPoint = MainWindow.mainWindow.AllViewModelGames[i].SnakesPlayers.Points.Count - 1; iPoint >= 0; iPoint--)
+                        {
+                            Snakes.Point SnakePoint = MainWindow.mainWindow.AllViewModelGames[i].SnakesPlayers.Points[iPoint];
+
+                            if (iPoint != 0)
+                            {
+                                Snakes.Point NextSnakePoint = MainWindow.mainWindow.AllViewModelGames[i].SnakesPlayers.Points[iPoint - 1];
+                                if (SnakePoint.X > NextSnakePoint.X || SnakePoint.X < NextSnakePoint.X)
+                                {
+                                    if (iPoint % 2 == 0)
+                                    {
+                                        if (StepCadr % 2 == 0)
+                                            SnakePoint.Y -= 1;
+                                        else
+                                            SnakePoint.Y += 1;
+                                    }
+                                    else
+                                    {
+                                        if (StepCadr % 2 == 0)
+                                            SnakePoint.Y += 1;
+                                        else
+                                            SnakePoint.Y -= 1;
+                                    }
+                                }
+                                else if (SnakePoint.Y > NextSnakePoint.Y || SnakePoint.Y < NextSnakePoint.Y)
+                                {
+                                    if (iPoint % 2 == 0)
+                                    {
+                                        if (StepCadr % 2 == 0)
+                                            SnakePoint.X -= 1;
+                                        else
+                                            SnakePoint.X += 1;
+                                    }
+                                    else
+                                    {
+                                        if (StepCadr % 2 == 0)
+                                            SnakePoint.X += 1;
+                                        else
+                                            SnakePoint.X -= 1;
+                                    }
+                                }
+                            }
+                            Brush Color;
+
+                            if (iPoint == 0)
+                            {
+                                Color = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 135, 135, 135));
+                            }
+                            else
+                            {
+                                Color = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 160, 160, 160));
+                            }
+
+                            Ellipse ellipse = new Ellipse()
+                            {
+                                Width = 20,
+                                Height = 20,
+                                Margin = new Thickness(SnakePoint.X - 10, SnakePoint.Y - 10, 0, 0),
+                                Fill = Color,
+                                Stroke = Brushes.Black
+                            };
+                            canvas.Children.Add(ellipse);
+                        }
+                    }
+                }
                 ImageBrush myBrush = new ImageBrush();
                 myBrush.ImageSource = new BitmapImage(new Uri($"pack://application:,,,/Image/Apple.png"));
                 Ellipse points = new Ellipse()
