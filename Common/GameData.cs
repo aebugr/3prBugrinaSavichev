@@ -8,7 +8,7 @@ namespace Common
 {
     public class GameData
     {
-        public ViewModelGames Player1Data { get; set; }
+        public ViewModelGames PlayerData { get; set; }
         public List<ViewModelGames> OtherPlayersData { get; set; }
     }
 }

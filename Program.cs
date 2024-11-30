@@ -34,7 +34,7 @@ namespace SnakeBugrina
                     var otherPlayersData = viewModelGames.FindAll(x => x.IdSnake != User.IdSnake);
                     var gameData = new GameData
                     {
-                        Player1Data = playerData,
+                        PlayerData = playerData,
                         OtherPlayersData = otherPlayersData
                     };
 
